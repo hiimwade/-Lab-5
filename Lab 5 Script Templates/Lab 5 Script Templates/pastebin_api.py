@@ -5,7 +5,7 @@ https://pastebin.com/doc_api
 import requests
 
 PASTEBIN_API_POST_URL = 'https://pastebin.com/api/api_post.php'
-API_DEV_KEY = 'Put your API key here'
+API_DEV_KEY = '6NkSHl15uIg0xIQOwvlu9IchSTo7M6-M'
 
 def post_new_paste(title, body_text, expiration='N', listed=True):
     """Posts a new paste to PasteBin
@@ -21,4 +21,30 @@ def post_new_paste(title, body_text, expiration='N', listed=True):
     """    
     # TODO: Function body
     # Note: This function will be written as a group 
-    return
+    #set up the post message paramaters
+    params = {
+        'api_dev_key':API_DEV_KEY,
+        'api_option':'paste',
+        'api_paste_code':body_text,
+        'api_paste_name': title,
+        'api_paste_private': 0 if  listed  else 1,
+        'api_paste_expire_date':expiration
+    }
+    #send the post request and get the response
+    print('Sedning requests to pastebin')
+    resp_msg = requests.post(PASTEBIN_API_POST_URL, data=params)
+
+    #check whether the request was successful
+    if resp_msg.status_code == requests.codes.ok:
+        print(f'New paste created: {resp_msg.text}')
+        return resp_msg.text
+    else:
+        print(f'Request Failed: {resp_msg.text}')
+        print(f'Status code: {resp_msg.status_code} ({resp_msg.reason})')
+        
+
+def main():
+    post_new_paste('awesome paste', 'this paste is not useful. /n delete whenever.', '1H', False)
+
+if __name__ == '__main__':
+    main()
