@@ -5,12 +5,34 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Poke API",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "poke_api.py",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": true,
+            "args": ["pokemon name"]
+
+
+            
+            
+        },
+        {
+            "name": "Poke Paste",
+            "type": "python",
+            "request": "launch",
+            "program": "pokemon_paste.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["Pikachu"]
+
+
+            
+            
         }
+
+
+
+
     ]
 }

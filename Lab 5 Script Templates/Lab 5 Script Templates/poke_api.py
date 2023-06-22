@@ -20,16 +20,30 @@ def get_pokemon_info(pokemon_name):
 
     Returns:
         dict: Dictionary of Pokemon information, if successful. Otherwise None.
+
     """
-    # TODO: Clean the Pokemon name parameter
+
+    
+    pokemon_name = str (pokemon_name).strip().lower()
 
     # TODO: Build a clean URL and use it to send a GET request
+    print(f'Getting information for {pokemon_name}...', end='')
+    url = POKE_API_URL + pokemon_name
+    resp_msg = requests.get(url)
+    print(url)
+    
 
-    # TODO: If the GET request was successful, convert the JSON-formatted message body text to a dictionary and return it
+    
 
-    # TODO: If the GET request failed, print the error reason and return None
+    if resp_msg.status_code == requests.codes.ok:
+        print('success')
+        return resp_msg.text  
+    else:
+        print('failure')
+        print(f'Response code: {resp_msg.status_code} ({resp_msg.reason})')
+    
 
-    return
+    return None
 
 if __name__ == '__main__':
     main()
